@@ -19,10 +19,18 @@ import 'intl/messages_all.dart';
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
 // ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
-class $className {
-  $className();
+extension _LocaleEx on Locale {
+  String get canonicalizedName {
+    final name = (countryCode?.isEmpty ?? false) ? languageCode : toString();
+    return Intl.canonicalizedLocale(name);
+  }
+}
 
-  static $className? _current;
+class $className {
+  final Locale locale;
+  final String localeName;
+
+  $className(this.locale) : localeName = locale.canonicalizedName;
 
   static $className get current {
     assert(_current != null, 'No instance of $className was loaded. Try to initialize the $className delegate before accessing $className.current.');
@@ -33,14 +41,13 @@ class $className {
     AppLocalizationDelegate();
 
   static Future<$className> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);${otaEnabled ? '\n${_generateMetadataSetter()}' : ''} 
+    final localizations = $className(locale);
+    final localeName = locale.canonicalizedName;
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      final instance = $className();
-      $className._current = instance;
+      $className.current = localizations;
  
-      return instance;
+      return $className.current;
     });
   } 
 

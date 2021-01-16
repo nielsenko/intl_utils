@@ -14,8 +14,7 @@ void main() {
     });
 
     test('Test instantiation with all args', () {
-      var label = Label('labelName', 'Content with {name} placeholder!',
-          type: 'text', description: 'Description', placeholders: ['name']);
+      var label = Label('labelName', 'Content with {name} placeholder!', type: 'text', description: 'Description', placeholders: ['name']);
 
       expect(label.name, equals('labelName'));
       expect(label.content, equals('Content with {name} placeholder!'));
@@ -56,8 +55,7 @@ void main() {
     });
 
     test('Test instantiation when description has new line set', () {
-      var label = Label('labelName', 'Content',
-          description: 'Description with \n new line');
+      var label = Label('labelName', 'Content', description: 'Description with \n new line');
 
       expect(label.name, equals('labelName'));
       expect(label.content, equals('Content'));
@@ -66,22 +64,18 @@ void main() {
       expect(label.placeholders, isNull);
     });
 
-    test('Test instantiation when description has single quotation mark set',
-        () {
-      var label = Label('labelName', 'Content',
-          description: 'Description with \' single quotation mark');
+    test('Test instantiation when description has single quotation mark set', () {
+      var label = Label('labelName', 'Content', description: 'Description with \' single quotation mark');
 
       expect(label.name, equals('labelName'));
       expect(label.content, equals('Content'));
       expect(label.type, isNull);
-      expect(label.description,
-          equals('Description with \' single quotation mark'));
+      expect(label.description, equals('Description with \' single quotation mark'));
       expect(label.placeholders, isNull);
     });
 
     test('Test instantiation when description has dollar sign set', () {
-      var label = Label('labelName', 'Content',
-          description: 'Description with \$ dollar sign');
+      var label = Label('labelName', 'Content', description: 'Description with \$ dollar sign');
 
       expect(label.name, equals('labelName'));
       expect(label.content, equals('Content'));
@@ -95,22 +89,19 @@ void main() {
     test('Test dart getter when name is empty string', () {
       var label = Label('', 'Content');
 
-      expect(label.generateDartGetter(),
-          equals("  // skipped getter for the '' key"));
+      expect(label.generateDartGetter(), equals("  // skipped getter for the '' key"));
     });
 
     test('Test dart getter when name is plain text', () {
       var label = Label('Some plain text', 'Content');
 
-      expect(label.generateDartGetter(),
-          equals("  // skipped getter for the 'Some plain text' key"));
+      expect(label.generateDartGetter(), equals("  // skipped getter for the 'Some plain text' key"));
     });
 
     test('Test dart getter when name does not follow naming convention', () {
       var label = Label('page.home.title', 'Content');
 
-      expect(label.generateDartGetter(),
-          equals("  // skipped getter for the 'page.home.title' key"));
+      expect(label.generateDartGetter(), equals("  // skipped getter for the 'page.home.title' key"));
     });
 
     // Note: the generated message may differ from the one in the `messages_<locale>.dart` file
@@ -126,6 +117,7 @@ void main() {
             '      \'Content {} with empty placeholder\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -145,6 +137,7 @@ void main() {
             '      \'Content {0} with digit placeholder\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -164,6 +157,7 @@ void main() {
             '      \'Content {#} with hash placeholder\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -171,11 +165,8 @@ void main() {
     });
 
     // Note: the generated message may differ from the one in the `messages_<locale>.dart` file
-    test(
-        'Test dart getter when content has placeholder which name does not follow naming convention',
-        () {
-      var label = Label('labelName',
-          'Content {invalid-placeholder-name} with invalid placeholder name');
+    test('Test dart getter when content has placeholder which name does not follow naming convention', () {
+      var label = Label('labelName', 'Content {invalid-placeholder-name} with invalid placeholder name');
 
       expect(
           label.generateDartGetter(),
@@ -186,6 +177,7 @@ void main() {
             '      \'Content {invalid-placeholder-name} with invalid placeholder name\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -206,6 +198,7 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -224,17 +217,15 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test literal dart getter with name, content, type and description set',
-        () {
-      var label = Label('labelName', 'Literal message',
-          type: 'text', description: 'Some description');
+    test('Test literal dart getter with name, content, type and description set', () {
+      var label = Label('labelName', 'Literal message', type: 'text', description: 'Some description');
 
       expect(
           label.generateDartGetter(),
@@ -245,6 +236,7 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'Some description\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -263,6 +255,7 @@ void main() {
             '      \'Literal `message`\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -281,16 +274,15 @@ void main() {
             '      \'Literal message \\n with new line\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test literal dart getter when content has single quotation mark set',
-        () {
-      var label =
-          Label('labelName', 'Literal message \' with single quotation mark');
+    test('Test literal dart getter when content has single quotation mark set', () {
+      var label = Label('labelName', 'Literal message \' with single quotation mark');
 
       expect(
           label.generateDartGetter(),
@@ -301,6 +293,7 @@ void main() {
             '      \'Literal message \\\' with single quotation mark\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -319,6 +312,7 @@ void main() {
             '      \'Literal message \\\$ with dollar sign\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -337,6 +331,7 @@ void main() {
             '      \'Escaping chars: \\\\\\n\\r\\t\\b\\f\\\'"\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -344,8 +339,7 @@ void main() {
     });
 
     test('Test literal dart getter when description has new line set', () {
-      var label = Label('labelName', 'Literal message',
-          description: 'Description \n with new line');
+      var label = Label('labelName', 'Literal message', description: 'Description \n with new line');
 
       expect(
           label.generateDartGetter(),
@@ -356,17 +350,15 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'Description \\n with new line\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test literal dart getter when description has single quotation mark set',
-        () {
-      var label = Label('labelName', 'Literal message',
-          description: 'Description \' with single quotation mark');
+    test('Test literal dart getter when description has single quotation mark set', () {
+      var label = Label('labelName', 'Literal message', description: 'Description \' with single quotation mark');
 
       expect(
           label.generateDartGetter(),
@@ -377,6 +369,7 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'Description \\\' with single quotation mark\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -384,8 +377,7 @@ void main() {
     });
 
     test('Test literal dart getter when description has dollar sign set', () {
-      var label = Label('labelName', 'Literal message',
-          description: 'Description \$ with dollar sign');
+      var label = Label('labelName', 'Literal message', description: 'Description \$ with dollar sign');
 
       expect(
           label.generateDartGetter(),
@@ -396,16 +388,15 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'Description \\\$ with dollar sign\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test literal dart getter when description has escaping chars set',
-        () {
-      var label = Label('labelName', 'Literal message',
-          description: 'Escaping chars: \\\n\r\t\b\f\'"');
+    test('Test literal dart getter when description has escaping chars set', () {
+      var label = Label('labelName', 'Literal message', description: 'Escaping chars: \\\n\r\t\b\f\'"');
 
       expect(
           label.generateDartGetter(),
@@ -416,6 +407,7 @@ void main() {
             '      \'Literal message\',',
             '      name: \'labelName\',',
             '      desc: \'Escaping chars: \\\\\\n\\r\\t\\b\\f\\\'"\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
@@ -436,17 +428,15 @@ void main() {
             '      \'Argument message \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name, content and placeholders set when placeholders are not used',
-        () {
-      var label =
-          Label('labelName', 'Argument message', placeholders: ['name']);
+    test('Test argument dart getter with name, content and placeholders set when placeholders are not used', () {
+      var label = Label('labelName', 'Argument message', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -457,16 +447,15 @@ void main() {
             '      \'Argument message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test argument dart getter with name, content and placeholders set',
-        () {
-      var label = Label('labelName', 'Argument message {name}.',
-          placeholders: ['name']);
+    test('Test argument dart getter with name, content and placeholders set', () {
+      var label = Label('labelName', 'Argument message {name}.', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -477,17 +466,15 @@ void main() {
             '      \'Argument message \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name, content and the first placeholder set',
-        () {
-      var label = Label('labelName', 'Argument message {firstName} {lastName}.',
-          placeholders: ['firstName']);
+    test('Test argument dart getter with name, content and the first placeholder set', () {
+      var label = Label('labelName', 'Argument message {firstName} {lastName}.', placeholders: ['firstName']);
 
       expect(
           label.generateDartGetter(),
@@ -498,17 +485,15 @@ void main() {
             '      \'Argument message \$firstName \$lastName.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [firstName, lastName],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name, content and the last placeholder set',
-        () {
-      var label = Label('labelName', 'Argument message {firstName} {lastName}.',
-          placeholders: ['lastName']);
+    test('Test argument dart getter with name, content and the last placeholder set', () {
+      var label = Label('labelName', 'Argument message {firstName} {lastName}.', placeholders: ['lastName']);
 
       expect(
           label.generateDartGetter(),
@@ -519,17 +504,15 @@ void main() {
             '      \'Argument message \$firstName \$lastName.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [lastName, firstName],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name and content set when some placeholders are repeated',
-        () {
-      var label = Label('labelName',
-          'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.');
+    test('Test argument dart getter with name and content set when some placeholders are repeated', () {
+      var label = Label('labelName', 'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.');
 
       expect(
           label.generateDartGetter(),
@@ -540,17 +523,15 @@ void main() {
             '      \'Argument message \$firstName \$lastName \$address, \$firstName \$lastName.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [firstName, lastName, address],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name, content and placeholders set when some placeholders are repeated',
-        () {
-      var label = Label('labelName',
-          'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.',
+    test('Test argument dart getter with name, content and placeholders set when some placeholders are repeated', () {
+      var label = Label('labelName', 'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.',
           placeholders: ['firstName', 'lastName', 'address']);
 
       expect(
@@ -562,18 +543,16 @@ void main() {
             '      \'Argument message \$firstName \$lastName \$address, \$firstName \$lastName.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [firstName, lastName, address],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name, content and the first placeholder set when some placeholders are repeated',
-        () {
-      var label = Label('labelName',
-          'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.',
-          placeholders: ['firstName']);
+    test('Test argument dart getter with name, content and the first placeholder set when some placeholders are repeated', () {
+      var label =
+          Label('labelName', 'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.', placeholders: ['firstName']);
 
       expect(
           label.generateDartGetter(),
@@ -584,18 +563,16 @@ void main() {
             '      \'Argument message \$firstName \$lastName \$address, \$firstName \$lastName.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [firstName, lastName, address],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter with name, content and the last placeholder set when some placeholders are repeated',
-        () {
-      var label = Label('labelName',
-          'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.',
-          placeholders: ['address']);
+    test('Test argument dart getter with name, content and the last placeholder set when some placeholders are repeated', () {
+      var label =
+          Label('labelName', 'Argument message {firstName} {lastName} {address}, {firstName} {lastName}.', placeholders: ['address']);
 
       expect(
           label.generateDartGetter(),
@@ -606,6 +583,7 @@ void main() {
             '      \'Argument message \$firstName \$lastName \$address, \$firstName \$lastName.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [address, firstName, lastName],',
             '    );',
             '  }'
@@ -624,6 +602,7 @@ void main() {
             '      \'Argument `message` \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
@@ -631,8 +610,7 @@ void main() {
     });
 
     test('Test argument dart getter when content has new line set', () {
-      var label = Label('labelName', 'Argument message \n {name}.',
-          placeholders: ['name']);
+      var label = Label('labelName', 'Argument message \n {name}.', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -643,16 +621,15 @@ void main() {
             '      \'Argument message \\n \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test argument dart getter when content has single quotation mark set',
-        () {
-      var label = Label('labelName', 'Argument message \' {name}.',
-          placeholders: ['name']);
+    test('Test argument dart getter when content has single quotation mark set', () {
+      var label = Label('labelName', 'Argument message \' {name}.', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -663,6 +640,7 @@ void main() {
             '      \'Argument message \\\' \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
@@ -670,8 +648,7 @@ void main() {
     });
 
     test('Test argument dart getter when content has dollar sign set', () {
-      var label = Label('labelName', 'Argument message \$ {name}.',
-          placeholders: ['name']);
+      var label = Label('labelName', 'Argument message \$ {name}.', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -682,15 +659,14 @@ void main() {
             '      \'Argument message \\\$ \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the text',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the text', () {
       var label = Label('labelName', 'Argument message: before{name} after.');
 
       expect(
@@ -702,15 +678,14 @@ void main() {
             '      \'Argument message: before\$name after.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the underscore sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the underscore sign', () {
       var label = Label('labelName', 'Argument message: before _{name} .');
 
       expect(
@@ -722,15 +697,14 @@ void main() {
             '      \'Argument message: before _\$name .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the number',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the number', () {
       var label = Label('labelName', 'Argument message: before 357{name} .');
 
       expect(
@@ -742,15 +716,14 @@ void main() {
             '      \'Argument message: before 357\$name .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the dash sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the dash sign', () {
       var label = Label('labelName', 'Argument message: before -{name} .');
 
       expect(
@@ -762,15 +735,14 @@ void main() {
             '      \'Argument message: before -\$name .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the dot sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the dot sign', () {
       var label = Label('labelName', 'Argument message: before .{name} .');
 
       expect(
@@ -782,15 +754,14 @@ void main() {
             '      \'Argument message: before .\$name .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the ampersand sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the ampersand sign', () {
       var label = Label('labelName', 'Argument message: before &{name} .');
 
       expect(
@@ -802,15 +773,14 @@ void main() {
             '      \'Argument message: before &\$name .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning with the dollar sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning with the dollar sign', () {
       var label = Label('labelName', 'Argument message: before \${name} .');
 
       expect(
@@ -822,15 +792,14 @@ void main() {
             '      \'Argument message: before \\\$\$name .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the text',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the text', () {
       var label = Label('labelName', 'Argument message: before {name}after.');
 
       expect(
@@ -842,15 +811,14 @@ void main() {
             '      \'Argument message: before \${name}after.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the underscore sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the underscore sign', () {
       var label = Label('labelName', 'Argument message: before {name}_.');
 
       expect(
@@ -862,15 +830,14 @@ void main() {
             '      \'Argument message: before \${name}_.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the number',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the number', () {
       var label = Label('labelName', 'Argument message: before {name}357.');
 
       expect(
@@ -882,15 +849,14 @@ void main() {
             '      \'Argument message: before \${name}357.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the dash sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the dash sign', () {
       var label = Label('labelName', 'Argument message: before {name}-.');
 
       expect(
@@ -902,15 +868,14 @@ void main() {
             '      \'Argument message: before \$name-.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the dot sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the dot sign', () {
       var label = Label('labelName', 'Argument message: before {name}.');
 
       expect(
@@ -922,15 +887,14 @@ void main() {
             '      \'Argument message: before \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the ampersand sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the ampersand sign', () {
       var label = Label('labelName', 'Argument message: before {name}&.');
 
       expect(
@@ -942,15 +906,14 @@ void main() {
             '      \'Argument message: before \$name&.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the ending with the dollar sign',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the ending with the dollar sign', () {
       var label = Label('labelName', 'Argument message: before {name}\$.');
 
       expect(
@@ -962,15 +925,14 @@ void main() {
             '      \'Argument message: before \$name\\\$.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when placeholder is sticked at the beginning and on the ending with the text',
-        () {
+    test('Test argument dart getter when placeholder is sticked at the beginning and on the ending with the text', () {
       var label = Label('labelName', 'Argument message: before{name}after.');
 
       expect(
@@ -982,6 +944,7 @@ void main() {
             '      \'Argument message: before\${name}after.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
@@ -989,8 +952,7 @@ void main() {
     });
 
     test('Test argument dart getter when description has new line set', () {
-      var label = Label('labelName', 'Argument message {name}.',
-          description: 'Description with \n new line', placeholders: ['name']);
+      var label = Label('labelName', 'Argument message {name}.', description: 'Description with \n new line', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -1001,18 +963,16 @@ void main() {
             '      \'Argument message \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\n new line\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test argument dart getter when description has single quotation mark set',
-        () {
-      var label = Label('labelName', 'Argument message {name}.',
-          description: 'Description with \' single quotation mark',
-          placeholders: ['name']);
+    test('Test argument dart getter when description has single quotation mark set', () {
+      var label =
+          Label('labelName', 'Argument message {name}.', description: 'Description with \' single quotation mark', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -1023,6 +983,7 @@ void main() {
             '      \'Argument message \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\' single quotation mark\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
@@ -1030,9 +991,7 @@ void main() {
     });
 
     test('Test argument dart getter when description has dollar sign set', () {
-      var label = Label('labelName', 'Argument message {name}.',
-          description: 'Description with \$ dollar sign',
-          placeholders: ['name']);
+      var label = Label('labelName', 'Argument message {name}.', description: 'Description with \$ dollar sign', placeholders: ['name']);
 
       expect(
           label.generateDartGetter(),
@@ -1043,6 +1002,7 @@ void main() {
             '      \'Argument message \$name.\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\$ dollar sign\',',
+            '      locale: localeName,',
             '      args: [name],',
             '    );',
             '  }'
@@ -1052,8 +1012,7 @@ void main() {
 
   group('Plural getters', () {
     test('Test plural dart getter with name and content set', () {
-      var label = Label(
-          'labelName', '{count, plural, one {one item} other {other items}}');
+      var label = Label('labelName', '{count, plural, one {one item} other {other items}}');
 
       expect(
           label.generateDartGetter(),
@@ -1066,6 +1025,7 @@ void main() {
             '      other: \'other items\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
@@ -1073,9 +1033,7 @@ void main() {
     });
 
     test('Test plural dart getter with name, content and placeholders set', () {
-      var label = Label(
-          'labelName', '{count, plural, one {one item} other {other items}}',
-          placeholders: ['count']);
+      var label = Label('labelName', '{count, plural, one {one item} other {other items}}', placeholders: ['count']);
 
       expect(
           label.generateDartGetter(),
@@ -1088,15 +1046,14 @@ void main() {
             '      other: \'other items\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter with name, content and placeholders set for all plural forms',
-        () {
+    test('Test plural dart getter with name, content and placeholders set for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero message} one {one message} two {two message} few {few message} many {many message} other {other message}}',
           placeholders: ['count']);
@@ -1116,18 +1073,15 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter with name, content and placeholders set for all plural forms when plural forms are empty',
-        () {
-      var label = Label('labelName',
-          '{count, plural, zero {} one {} two {} few {} many {} other {}}',
-          placeholders: ['count']);
+    test('Test plural dart getter with name, content and placeholders set for all plural forms when plural forms are empty', () {
+      var label = Label('labelName', '{count, plural, zero {} one {} two {} few {} many {} other {}}', placeholders: ['count']);
 
       expect(
           label.generateDartGetter(),
@@ -1144,15 +1098,14 @@ void main() {
             '      other: \'\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has backtick set for all plural forms',
-        () {
+    test('Test plural dart getter when content has backtick set for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero `message`} one {one `message`} two {two `message`} few {few `message`} many {many `message`} other {other `message`}}',
           placeholders: ['count']);
@@ -1172,15 +1125,14 @@ void main() {
             '      other: \'other `message`\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has new line set for all plural forms',
-        () {
+    test('Test plural dart getter when content has new line set for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero \n message} one {one \n message} two {two \n message} few {few \n message} many {many \n message} other {other \n message}}',
           placeholders: ['count']);
@@ -1200,15 +1152,14 @@ void main() {
             '      other: \'other \\n message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has single quotation mark set for all plural forms',
-        () {
+    test('Test plural dart getter when content has single quotation mark set for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero \' message} one {one \' message} two {two \' message} few {few \' message} many {many \' message} other {other \' message}}',
           placeholders: ['count']);
@@ -1228,15 +1179,14 @@ void main() {
             '      other: \'other \\\' message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has dollar sign set for all plural forms',
-        () {
+    test('Test plural dart getter when content has dollar sign set for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero \$ message} one {one \$ message} two {two \$ message} few {few \$ message} many {many \$ message} other {other \$ message}}',
           placeholders: ['count']);
@@ -1256,15 +1206,14 @@ void main() {
             '      other: \'other \\\$ message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has placeholder which is sticked at the ending with the text for all plural forms',
-        () {
+    test('Test plural dart getter when content has placeholder which is sticked at the ending with the text for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero {count}abc} one {one {count}abc} two {two {count}abc} few {few {count}abc} many {many {count}abc} other {other {count}abc}}',
           placeholders: ['count']);
@@ -1284,6 +1233,7 @@ void main() {
             '      other: \'other \${count}abc\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
@@ -1312,15 +1262,14 @@ void main() {
             '      other: \'other \${count}_ .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has placeholder which is sticked at the ending with the number for all plural forms',
-        () {
+    test('Test plural dart getter when content has placeholder which is sticked at the ending with the number for all plural forms', () {
       var label = Label('labelName',
           '{count, plural, zero {zero {count}357 .} one {one {count}357 .} two {two {count}357 .} few {few {count}357 .} many {many {count}357 .} other {other {count}357 .}}',
           placeholders: ['count']);
@@ -1340,6 +1289,7 @@ void main() {
             '      other: \'other \${count}357 .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
@@ -1368,6 +1318,7 @@ void main() {
             '      other: \'other before\${count}after.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
@@ -1375,8 +1326,7 @@ void main() {
     });
 
     test('Test plural dart getter when description has new line set', () {
-      var label = Label('labelName',
-          '{count, plural, one {one message} other {other message}}',
+      var label = Label('labelName', '{count, plural, one {one message} other {other message}}',
           description: 'Description with \n new line', placeholders: ['count']);
 
       expect(
@@ -1390,19 +1340,16 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\n new line\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when description has single quotation mark set',
-        () {
-      var label = Label('labelName',
-          '{count, plural, one {one message} other {other message}}',
-          description: 'Description with \' single quotation mark',
-          placeholders: ['count']);
+    test('Test plural dart getter when description has single quotation mark set', () {
+      var label = Label('labelName', '{count, plural, one {one message} other {other message}}',
+          description: 'Description with \' single quotation mark', placeholders: ['count']);
 
       expect(
           label.generateDartGetter(),
@@ -1415,6 +1362,7 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\' single quotation mark\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
@@ -1422,10 +1370,8 @@ void main() {
     });
 
     test('Test plural dart getter when description has dollar sign set', () {
-      var label = Label('labelName',
-          '{count, plural, one {one message} other {other message}}',
-          description: 'Description with \$ dollar sign',
-          placeholders: ['count']);
+      var label = Label('labelName', '{count, plural, one {one message} other {other message}}',
+          description: 'Description with \$ dollar sign', placeholders: ['count']);
 
       expect(
           label.generateDartGetter(),
@@ -1438,17 +1384,16 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\$ dollar sign\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test plural dart getter when content has additional placeholder set',
-        () {
-      var label = Label('labelName',
-          '{count, plural, one {{name} has one item} other {{name} have {count} items}}',
-          placeholders: ['count']);
+    test('Test plural dart getter when content has additional placeholder set', () {
+      var label =
+          Label('labelName', '{count, plural, one {{name} has one item} other {{name} have {count} items}}', placeholders: ['count']);
 
       expect(
           label.generateDartGetter(),
@@ -1461,14 +1406,14 @@ void main() {
             '      other: \'\$name have \$count items\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test plural dart getter when content has nested plural content set',
-        () {
+    test('Test plural dart getter when content has nested plural content set', () {
       var label = Label('labelName',
           '{cats, plural, one {one cat runs {birds, plural, one {one bird.} other {{birds} birds.}}} other {{cats} cats run {birds, plural, one {one bird.} other {{birds} birds.}}}}',
           placeholders: ['cats']);
@@ -1484,14 +1429,14 @@ void main() {
             '      other: \'{cats} cats run {birds, plural, one {one bird.} other {{birds} birds.}}\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [cats, birds],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test plural dart getter when content has nested gender content set',
-        () {
+    test('Test plural dart getter when content has nested gender content set', () {
       var label = Label('labelName',
           '{cats, plural, one {one cat runs {gender, select, male {one man} female {one woman} other {one person}}} other {{cats} cats run {gender, select, male {one man} female {one woman} other {one person}}}}',
           placeholders: ['cats']);
@@ -1507,16 +1452,16 @@ void main() {
             '      other: \'{cats} cats run {gender, select, male {one man} female {one woman} other {one person}}\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [cats, gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test plural dart getter when content has additional plural form set',
-        () {
-      var label = Label('labelName',
-          '{count, plural, one {one message} unsupportedPluralForm {unsupported plural form message} other {other message}}');
+    test('Test plural dart getter when content has additional plural form set', () {
+      var label = Label(
+          'labelName', '{count, plural, one {one message} unsupportedPluralForm {unsupported plural form message} other {other message}}');
 
       expect(
           label.generateDartGetter(),
@@ -1527,15 +1472,14 @@ void main() {
             '      \'{count, plural, one {one message} unsupportedPluralForm {unsupported plural form message} other {other message}}\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test plural dart getter when content has plural forms with the same meaning set',
-        () {
+    test('Test plural dart getter when content has plural forms with the same meaning set', () {
       var label = Label('labelName',
           '{count, plural, =0 {=0 message} zero {zero message} =1 {=1 message} one {one message} =2 {=2 message} two {two message} other {other message}}');
 
@@ -1552,14 +1496,14 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test plural dart getter when content has repeated plural forms set',
-        () {
+    test('Test plural dart getter when content has repeated plural forms set', () {
       var label = Label('labelName',
           '{count, plural, one {one message} one {repeated one message} other {other message} other {repeated other message}}');
 
@@ -1574,6 +1518,7 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
@@ -1583,8 +1528,7 @@ void main() {
 
   group('Gender getters', () {
     test('Test gender dart getter with name and content set', () {
-      var label = Label('labelName',
-          '{gender, select, male {male message} female {female message} other {other message}}');
+      var label = Label('labelName', '{gender, select, male {male message} female {female message} other {other message}}');
 
       expect(
           label.generateDartGetter(),
@@ -1598,6 +1542,7 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
@@ -1605,8 +1550,7 @@ void main() {
     });
 
     test('Test gender dart getter with name, content and placeholders set', () {
-      var label = Label('labelName',
-          '{gender, select, male {male message} female {female message} other {other message}}',
+      var label = Label('labelName', '{gender, select, male {male message} female {female message} other {other message}}',
           placeholders: ['gender']);
 
       expect(
@@ -1621,18 +1565,15 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter with name, content and placeholders set when gender forms are empty',
-        () {
-      var label = Label(
-          'labelName', '{gender, select, male {} female {} other {}}',
-          placeholders: ['gender']);
+    test('Test gender dart getter with name, content and placeholders set when gender forms are empty', () {
+      var label = Label('labelName', '{gender, select, male {} female {} other {}}', placeholders: ['gender']);
 
       expect(
           label.generateDartGetter(),
@@ -1646,17 +1587,15 @@ void main() {
             '      other: \'\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has backtick set for all gender forms',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male `message`} female {female `message`} other {other `message`}}');
+    test('Test gender dart getter when content has backtick set for all gender forms', () {
+      var label = Label('labelName', '{gender, select, male {male `message`} female {female `message`} other {other `message`}}');
 
       expect(
           label.generateDartGetter(),
@@ -1670,17 +1609,15 @@ void main() {
             '      other: \'other `message`\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has new line set for all gender forms',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male \n message} female {female \n message} other {other \n message}}');
+    test('Test gender dart getter when content has new line set for all gender forms', () {
+      var label = Label('labelName', '{gender, select, male {male \n message} female {female \n message} other {other \n message}}');
 
       expect(
           label.generateDartGetter(),
@@ -1694,17 +1631,15 @@ void main() {
             '      other: \'other \\n message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has single quotation mark set for all gender forms',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male \' message} female {female \' message} other {other \' message}}');
+    test('Test gender dart getter when content has single quotation mark set for all gender forms', () {
+      var label = Label('labelName', '{gender, select, male {male \' message} female {female \' message} other {other \' message}}');
 
       expect(
           label.generateDartGetter(),
@@ -1718,17 +1653,15 @@ void main() {
             '      other: \'other \\\' message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has dollar sign set for all gender forms',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male \$ message} female {female \$ message} other {other \$ message}}');
+    test('Test gender dart getter when content has dollar sign set for all gender forms', () {
+      var label = Label('labelName', '{gender, select, male {male \$ message} female {female \$ message} other {other \$ message}}');
 
       expect(
           label.generateDartGetter(),
@@ -1742,17 +1675,15 @@ void main() {
             '      other: \'other \\\$ message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has placeholder which is sticked at the ending with the text for all gender forms',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male {gender}abc} female {female {gender}abc} other {other {gender}abc}}');
+    test('Test gender dart getter when content has placeholder which is sticked at the ending with the text for all gender forms', () {
+      var label = Label('labelName', '{gender, select, male {male {gender}abc} female {female {gender}abc} other {other {gender}abc}}');
 
       expect(
           label.generateDartGetter(),
@@ -1766,6 +1697,7 @@ void main() {
             '      other: \'other \${gender}abc\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
@@ -1775,8 +1707,7 @@ void main() {
     test(
         'Test gender dart getter when content has placeholder which is sticked at the ending with the underscore sign for all gender forms',
         () {
-      var label = Label('labelName',
-          '{gender, select, male {male {gender}_} female {female {gender}_} other {other {gender}_}}');
+      var label = Label('labelName', '{gender, select, male {male {gender}_} female {female {gender}_} other {other {gender}_}}');
 
       expect(
           label.generateDartGetter(),
@@ -1790,17 +1721,16 @@ void main() {
             '      other: \'other \${gender}_\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has placeholder which is sticked at the ending with the number for all gender forms',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male {gender}357 .} female {female {gender}357 .} other {other {gender}357 .}}');
+    test('Test gender dart getter when content has placeholder which is sticked at the ending with the number for all gender forms', () {
+      var label =
+          Label('labelName', '{gender, select, male {male {gender}357 .} female {female {gender}357 .} other {other {gender}357 .}}');
 
       expect(
           label.generateDartGetter(),
@@ -1814,6 +1744,7 @@ void main() {
             '      other: \'other \${gender}357 .\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
@@ -1838,6 +1769,7 @@ void main() {
             '      other: \'other before\${gender}after\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
@@ -1845,8 +1777,7 @@ void main() {
     });
 
     test('Test gender dart getter when description has new line set', () {
-      var label = Label('labelName',
-          '{gender, select, male {male message} female {female message} other {other message}}',
+      var label = Label('labelName', '{gender, select, male {male message} female {female message} other {other message}}',
           description: 'Description with \n new line');
 
       expect(
@@ -1861,17 +1792,15 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\n new line\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when description has single quotation mark set',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male message} female {female message} other {other message}}',
+    test('Test gender dart getter when description has single quotation mark set', () {
+      var label = Label('labelName', '{gender, select, male {male message} female {female message} other {other message}}',
           description: 'Description with \' single quotation mark');
 
       expect(
@@ -1886,6 +1815,7 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\' single quotation mark\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
@@ -1893,8 +1823,7 @@ void main() {
     });
 
     test('Test gender dart getter when description has dollar sign set', () {
-      var label = Label('labelName',
-          '{gender, select, male {male message} female {female message} other {other message}}',
+      var label = Label('labelName', '{gender, select, male {male message} female {female message} other {other message}}',
           description: 'Description with \$ dollar sign');
 
       expect(
@@ -1909,15 +1838,14 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\$ dollar sign\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has placeholder set for all gender forms',
-        () {
+    test('Test gender dart getter when content has placeholder set for all gender forms', () {
       var label = Label('labelName',
           '{gender, select, male {male message with {name} placeholder} female {female message with {name} placeholder} other {other message with {name} placeholder}}');
 
@@ -1933,15 +1861,14 @@ void main() {
             '      other: \'other message with \$name placeholder\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has two placeholders set for all gender forms',
-        () {
+    test('Test gender dart getter when content has two placeholders set for all gender forms', () {
       var label = Label('labelName',
           '{gender, select, male {male message with {firstName} {lastName} placeholders} female {female message with {firstName} {lastName} placeholders} other {other message with {firstName} {lastName} placeholders}}');
 
@@ -1957,15 +1884,14 @@ void main() {
             '      other: \'other message with \$firstName \$lastName placeholders\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender, firstName, lastName],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test gender dart getter when content has plural content set for all gender forms',
-        () {
+    test('Test gender dart getter when content has plural content set for all gender forms', () {
       var label = Label('labelName',
           '{gender, select, male {He has {apples, plural, one {one apple} other {{apples} apples}}} female {She has {apples, plural, one {one apple} other {{apples} apples}}} other {Person has {apples, plural, one {one apple} other {{apples} apples}}}}');
 
@@ -1981,14 +1907,14 @@ void main() {
             '      other: \'Person has {apples, plural, one {one apple} other {{apples} apples}}\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender, apples],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test gender dart getter when content has additional gender form set',
-        () {
+    test('Test gender dart getter when content has additional gender form set', () {
       var label = Label('labelName',
           '{gender, select, male {male message} unsupportedGenderForm {unsupported gender form message} female {female message} other {other message}}');
 
@@ -2007,16 +1933,16 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test gender dart getter when content has repeated gender form set',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {male message} male {repeated male message} female {female message} other {other message}}');
+    test('Test gender dart getter when content has repeated gender form set', () {
+      var label = Label(
+          'labelName', '{gender, select, male {male message} male {repeated male message} female {female message} other {other message}}');
 
       expect(
           label.generateDartGetter(),
@@ -2030,6 +1956,7 @@ void main() {
             '      other: \'other message\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender],',
             '    );',
             '  }'
@@ -2039,8 +1966,7 @@ void main() {
 
   group('Select getters', () {
     test('Test select dart getter with name and content set', () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo message} bar {bar message} other {other message}}');
+      var label = Label('labelName', '{choice, select, foo {foo message} bar {bar message} other {other message}}');
 
       expect(
           label.generateDartGetter(),
@@ -2056,6 +1982,7 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
@@ -2063,9 +1990,8 @@ void main() {
     });
 
     test('Test select dart getter with name, content and placeholders set', () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo message} bar {bar message} other {other message}}',
-          placeholders: ['choice']);
+      var label =
+          Label('labelName', '{choice, select, foo {foo message} bar {bar message} other {other message}}', placeholders: ['choice']);
 
       expect(
           label.generateDartGetter(),
@@ -2081,17 +2007,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter with name, content and placeholders set when select cases are empty',
-        () {
-      var label = Label('labelName', '{choice, select, foo {} bar {} other {}}',
-          placeholders: ['choice']);
+    test('Test select dart getter with name, content and placeholders set when select cases are empty', () {
+      var label = Label('labelName', '{choice, select, foo {} bar {} other {}}', placeholders: ['choice']);
 
       expect(
           label.generateDartGetter(),
@@ -2107,17 +2031,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has backtick set for all select cases',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo `message`} bar {bar `message`} other {other `message`}}');
+    test('Test select dart getter when content has backtick set for all select cases', () {
+      var label = Label('labelName', '{choice, select, foo {foo `message`} bar {bar `message`} other {other `message`}}');
 
       expect(
           label.generateDartGetter(),
@@ -2133,17 +2055,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has new line set for all select cases',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo \n message} bar {bar \n message} other {other \n message}}');
+    test('Test select dart getter when content has new line set for all select cases', () {
+      var label = Label('labelName', '{choice, select, foo {foo \n message} bar {bar \n message} other {other \n message}}');
 
       expect(
           label.generateDartGetter(),
@@ -2159,17 +2079,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has single quotation mark set for all select cases',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo \' message} bar {bar \' message} other {other \' message}}');
+    test('Test select dart getter when content has single quotation mark set for all select cases', () {
+      var label = Label('labelName', '{choice, select, foo {foo \' message} bar {bar \' message} other {other \' message}}');
 
       expect(
           label.generateDartGetter(),
@@ -2185,17 +2103,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has dollar sign set for all select cases',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo \$ message} bar {bar \$ message} other {other \$ message}}');
+    test('Test select dart getter when content has dollar sign set for all select cases', () {
+      var label = Label('labelName', '{choice, select, foo {foo \$ message} bar {bar \$ message} other {other \$ message}}');
 
       expect(
           label.generateDartGetter(),
@@ -2211,17 +2127,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has placeholder which is sticked at the ending with the text for all select cases',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo {choice}abc} bar {bar {choice}abc} other {other {choice}abc}}');
+    test('Test select dart getter when content has placeholder which is sticked at the ending with the text for all select cases', () {
+      var label = Label('labelName', '{choice, select, foo {foo {choice}abc} bar {bar {choice}abc} other {other {choice}abc}}');
 
       expect(
           label.generateDartGetter(),
@@ -2237,6 +2151,7 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
@@ -2246,8 +2161,7 @@ void main() {
     test(
         'Test select dart getter when content has placeholder which is sticked at the ending with the underscore sign for all select cases',
         () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo {choice}_} bar {bar {choice}_} other {other {choice}_}}');
+      var label = Label('labelName', '{choice, select, foo {foo {choice}_} bar {bar {choice}_} other {other {choice}_}}');
 
       expect(
           label.generateDartGetter(),
@@ -2263,17 +2177,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has placeholder which is sticked at the ending with the number for all select cases',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo {choice}357 .} bar {bar {choice}357 .} other {other {choice}357 .}}');
+    test('Test select dart getter when content has placeholder which is sticked at the ending with the number for all select cases', () {
+      var label = Label('labelName', '{choice, select, foo {foo {choice}357 .} bar {bar {choice}357 .} other {other {choice}357 .}}');
 
       expect(
           label.generateDartGetter(),
@@ -2289,6 +2201,7 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
@@ -2298,8 +2211,8 @@ void main() {
     test(
         'Test select dart getter when content has placeholder which is sticked at the beginning and at the ending with the text for all select cases',
         () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo before{choice}after} bar {bar before{choice}after} other {other before{choice}after}}');
+      var label = Label(
+          'labelName', '{choice, select, foo {foo before{choice}after} bar {bar before{choice}after} other {other before{choice}after}}');
 
       expect(
           label.generateDartGetter(),
@@ -2315,6 +2228,7 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
@@ -2322,8 +2236,7 @@ void main() {
     });
 
     test('Test select dart getter when description has new line set', () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo message} bar {bar message} other {other message}}',
+      var label = Label('labelName', '{choice, select, foo {foo message} bar {bar message} other {other message}}',
           description: 'Description with \n new line');
 
       expect(
@@ -2340,17 +2253,15 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'Description with \\n new line\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when description has single quotation mark set',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo message} bar {bar message} other {other message}}',
+    test('Test select dart getter when description has single quotation mark set', () {
+      var label = Label('labelName', '{choice, select, foo {foo message} bar {bar message} other {other message}}',
           description: 'Description with \' single quotation mark');
 
       expect(
@@ -2367,6 +2278,7 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\' single quotation mark\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
@@ -2374,8 +2286,7 @@ void main() {
     });
 
     test('Test select dart getter when description has dollar sign set', () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo message} bar {bar message} other {other message}}',
+      var label = Label('labelName', '{choice, select, foo {foo message} bar {bar message} other {other message}}',
           description: 'Description with \$ dollar sign');
 
       expect(
@@ -2392,15 +2303,14 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'Description with \\\$ dollar sign\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has placeholder set for all select cases',
-        () {
+    test('Test select dart getter when content has placeholder set for all select cases', () {
       var label = Label('labelName',
           '{choice, select, foo {foo message with {name} placeholder} bar {bar message with {name} placeholder} other {other message with {name} placeholder}}');
 
@@ -2418,15 +2328,14 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has placeholder set for all select cases and reverse placeholders order',
-        () {
+    test('Test select dart getter when content has placeholder set for all select cases and reverse placeholders order', () {
       var label = Label('labelName',
           '{choice, select, foo {foo message with {name} placeholder} bar {bar message with {name} placeholder} other {other message with {name} placeholder}}',
           placeholders: ['name', 'choice']);
@@ -2445,15 +2354,14 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has two placeholders set for all select cases',
-        () {
+    test('Test select dart getter when content has two placeholders set for all select cases', () {
       var label = Label('labelName',
           '{choice, select, foo {foo message with {firstName} {lastName} placeholders} bar {bar message with {firstName} {lastName} placeholders} other {other message with {firstName} {lastName} placeholders}}');
 
@@ -2471,15 +2379,14 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, firstName, lastName],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has two placeholders set for all select cases and reverse placeholders order',
-        () {
+    test('Test select dart getter when content has two placeholders set for all select cases and reverse placeholders order', () {
       var label = Label('labelName',
           '{choice, select, foo {foo message with {firstName} {lastName} placeholders} bar {bar message with {firstName} {lastName} placeholders} other {other message with {firstName} {lastName} placeholders}}',
           placeholders: ['lastName', 'firstName', 'choice']);
@@ -2498,15 +2405,14 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, lastName, firstName],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test select dart getter when content has plural content set for all select cases',
-        () {
+    test('Test select dart getter when content has plural content set for all select cases', () {
       var label = Label('labelName',
           '{choice, select, foo {foo {apples, plural, one {one apple} other {{apples} apples}}} bar {bar {apples, plural, one {one apple} other {{apples} apples}}} other {other {apples, plural, one {one apple} other {{apples} apples}}}}');
 
@@ -2524,16 +2430,16 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, apples],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test('Test select dart getter when content has repeated select case set',
-        () {
-      var label = Label('labelName',
-          '{choice, select, foo {foo message} foo {repeated foo message} bar {bar message} other {other message}}');
+    test('Test select dart getter when content has repeated select case set', () {
+      var label =
+          Label('labelName', '{choice, select, foo {foo message} foo {repeated foo message} bar {bar message} other {other message}}');
 
       expect(
           label.generateDartGetter(),
@@ -2549,6 +2455,7 @@ void main() {
             '      },',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice],',
             '    );',
             '  }'
@@ -2557,11 +2464,8 @@ void main() {
   });
 
   group('Compound getters', () {
-    test(
-        'Test compound message of literal and plural dart getter with name and content set',
-        () {
-      var label = Label('labelName',
-          'John has {count, plural, one {{count} apple} other {{count} apples}}.');
+    test('Test compound message of literal and plural dart getter with name and content set', () {
+      var label = Label('labelName', 'John has {count, plural, one {{count} apple} other {{count} apples}}.');
 
       expect(
           label.generateDartGetter(),
@@ -2572,18 +2476,15 @@ void main() {
             '      \'John has \${Intl.plural(count, one: \'\$count apple\', other: \'\$count apples\')}.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of literal and plural dart getter with name, content and placeholders set',
-        () {
-      var label = Label('labelName',
-          'John has {count, plural, one {{count} apple} other {{count} apples}}.',
-          placeholders: ['count']);
+    test('Test compound message of literal and plural dart getter with name, content and placeholders set', () {
+      var label = Label('labelName', 'John has {count, plural, one {{count} apple} other {{count} apples}}.', placeholders: ['count']);
 
       expect(
           label.generateDartGetter(),
@@ -2594,17 +2495,15 @@ void main() {
             '      \'John has \${Intl.plural(count, one: \'\$count apple\', other: \'\$count apples\')}.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of literal and gender dart getter with name and content set',
-        () {
-      var label = Label('labelName',
-          'Welcome {gender, select, male {Mr {name}} female {Mrs {name}} other {dear {name}}}.');
+    test('Test compound message of literal and gender dart getter with name and content set', () {
+      var label = Label('labelName', 'Welcome {gender, select, male {Mr {name}} female {Mrs {name}} other {dear {name}}}.');
 
       expect(
           label.generateDartGetter(),
@@ -2615,17 +2514,15 @@ void main() {
             '      \'Welcome \${Intl.gender(gender, male: \'Mr \$name\', female: \'Mrs \$name\', other: \'dear \$name\')}.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of literal and gender dart getter with name, content and placeholders set',
-        () {
-      var label = Label('labelName',
-          'Welcome {gender, select, male {Mr {name}} female {Mrs {name}} other {dear {name}}}.',
+    test('Test compound message of literal and gender dart getter with name, content and placeholders set', () {
+      var label = Label('labelName', 'Welcome {gender, select, male {Mr {name}} female {Mrs {name}} other {dear {name}}}.',
           placeholders: ['gender', 'name']);
 
       expect(
@@ -2637,17 +2534,15 @@ void main() {
             '      \'Welcome \${Intl.gender(gender, male: \'Mr \$name\', female: \'Mrs \$name\', other: \'dear \$name\')}.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of literal and select dart getter with name and content set',
-        () {
-      var label = Label('labelName',
-          'The {choice, select, admin {admin {name}} owner {owner {name}} other {user {name}}}.');
+    test('Test compound message of literal and select dart getter with name and content set', () {
+      var label = Label('labelName', 'The {choice, select, admin {admin {name}} owner {owner {name}} other {user {name}}}.');
 
       expect(
           label.generateDartGetter(),
@@ -2658,17 +2553,15 @@ void main() {
             '      \'The \${Intl.select(choice, {\'admin\': \'admin \$name\', \'owner\': \'owner \$name\', \'other\': \'user \$name\'})}.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of literal and select dart getter with name, content and placeholders set',
-        () {
-      var label = Label('labelName',
-          'The {choice, select, admin {admin {name}} owner {owner {name}} other {user {name}}}.',
+    test('Test compound message of literal and select dart getter with name, content and placeholders set', () {
+      var label = Label('labelName', 'The {choice, select, admin {admin {name}} owner {owner {name}} other {user {name}}}.',
           placeholders: ['choice', 'name']);
 
       expect(
@@ -2680,17 +2573,15 @@ void main() {
             '      \'The \${Intl.select(choice, {\'admin\': \'admin \$name\', \'owner\': \'owner \$name\', \'other\': \'user \$name\'})}.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, name],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of argument and plural dart getter with name and content set',
-        () {
-      var label = Label('labelName',
-          '{name} has {count, plural, one {{count} apple} other {{count} apples}} in the bag.');
+    test('Test compound message of argument and plural dart getter with name and content set', () {
+      var label = Label('labelName', '{name} has {count, plural, one {{count} apple} other {{count} apples}} in the bag.');
 
       expect(
           label.generateDartGetter(),
@@ -2701,17 +2592,15 @@ void main() {
             '      \'\$name has \${Intl.plural(count, one: \'\$count apple\', other: \'\$count apples\')} in the bag.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [name, count],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of argument and gender dart getter with name and content set',
-        () {
-      var label = Label('labelName',
-          'The {gender, select, male {Mr {name}} female {Mrs {name}} other {dear {name}}} has the {device}.');
+    test('Test compound message of argument and gender dart getter with name and content set', () {
+      var label = Label('labelName', 'The {gender, select, male {Mr {name}} female {Mrs {name}} other {dear {name}}} has the {device}.');
 
       expect(
           label.generateDartGetter(),
@@ -2722,17 +2611,16 @@ void main() {
             '      \'The \${Intl.gender(gender, male: \'Mr \$name\', female: \'Mrs \$name\', other: \'dear \$name\')} has the \$device.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [gender, name, device],',
             '    );',
             '  }'
           ].join('\n')));
     });
 
-    test(
-        'Test compound message of argument and select dart getter with name and content set',
-        () {
-      var label = Label('labelName',
-          'The one {choice, select, coffee {{name} coffee} tea {{name} tea} other {{name} drink}} please for the {client}.');
+    test('Test compound message of argument and select dart getter with name and content set', () {
+      var label = Label(
+          'labelName', 'The one {choice, select, coffee {{name} coffee} tea {{name} tea} other {{name} drink}} please for the {client}.');
 
       expect(
           label.generateDartGetter(),
@@ -2743,6 +2631,7 @@ void main() {
             '      \'The one \${Intl.select(choice, {\'coffee\': \'\$name coffee\', \'tea\': \'\$name tea\', \'other\': \'\$name drink\'})} please for the \$client.\',',
             '      name: \'labelName\',',
             '      desc: \'\',',
+            '      locale: localeName,',
             '      args: [choice, name, client],',
             '    );',
             '  }'
@@ -2769,9 +2658,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains empty curly braces pair',
-        () {
+    test('Test label metadata generator when label content contains empty curly braces pair', () {
       var label = Label('labelName', '{}');
 
       expect(
@@ -2780,9 +2667,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains number within curly braces',
-        () {
+    test('Test label metadata generator when label content contains number within curly braces', () {
       var label = Label('labelName', '{0}');
 
       expect(
@@ -2791,9 +2676,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains hash within curly braces',
-        () {
+    test('Test label metadata generator when label content contains hash within curly braces', () {
       var label = Label('labelName', '{#}');
 
       expect(
@@ -2802,9 +2685,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains valid placeholder',
-        () {
+    test('Test label metadata generator when label content contains valid placeholder', () {
       var label = Label('labelName', '{name}');
 
       expect(
@@ -2813,9 +2694,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains few valid placeholders',
-        () {
+    test('Test label metadata generator when label content contains few valid placeholders', () {
       var label = Label('labelName', 'Hi {firstName} {lastName}!');
 
       expect(
@@ -2824,11 +2703,8 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains plural message',
-        () {
-      var label = Label('labelName',
-          '{count, plural, one {{count} item} other {{count} items}}');
+    test('Test label metadata generator when label content contains plural message', () {
+      var label = Label('labelName', '{count, plural, one {{count} item} other {{count} items}}');
 
       expect(
         label.generateMetadata(),
@@ -2836,11 +2712,8 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains gender message',
-        () {
-      var label = Label('labelName',
-          '{gender, select, male {Mr {name}} female {Mrs {name}} other {user {name}}}');
+    test('Test label metadata generator when label content contains gender message', () {
+      var label = Label('labelName', '{gender, select, male {Mr {name}} female {Mrs {name}} other {user {name}}}');
 
       expect(
         label.generateMetadata(),
@@ -2848,11 +2721,8 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains select message',
-        () {
-      var label = Label('labelName',
-          '{choice, select, admin {admin {name}} owner {owner {name}} other {user {name}}}');
+    test('Test label metadata generator when label content contains select message', () {
+      var label = Label('labelName', '{choice, select, admin {admin {name}} owner {owner {name}} other {user {name}}}');
 
       expect(
         label.generateMetadata(),
@@ -2860,9 +2730,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains compound message',
-        () {
+    test('Test label metadata generator when label content contains compound message', () {
       var label = Label('labelName',
           'The {gender, select, male {Mr} female {Mrs} other {user}} {name} has {count, plural, one {{count} apple} other {{count} apples}}.');
 
@@ -2872,9 +2740,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains invalid placeholder name',
-        () {
+    test('Test label metadata generator when label content contains invalid placeholder name', () {
       var label = Label('labelName', 'Hi {invalie-placeholder}!');
 
       expect(
@@ -2883,9 +2749,7 @@ void main() {
       );
     });
 
-    test(
-        'Test label metadata generator when label content contains invalid placeholder declaration',
-        () {
+    test('Test label metadata generator when label content contains invalid placeholder declaration', () {
       var label = Label('labelName', 'Hi {{year}}!');
 
       expect(
